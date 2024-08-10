@@ -108,7 +108,7 @@ function VideoDisplayer({ videos, url }: VideoDisplayerProps) {
           <video controls className='rounded-lg'>
             <source src={videoRender(url, videos)} type="video/mp4" />
           </video>
-          {(url.includes('https://youtu.be/') || url.includes('https://www.youtube.com/')) &&
+          {/* {(url.includes('https://youtu.be/') || url.includes('https://www.youtube.com/')) &&
             videos.videos?.items.map((video, index) => (
               <div key={index} className="flex flex-col gap-4">
                 <a target="_blank" href={video.url} className="flex gap-3">
@@ -121,7 +121,7 @@ function VideoDisplayer({ videos, url }: VideoDisplayerProps) {
                   <a href={videos.audios?.items[1]?.url}> Download audio </a>
                 </figure>
               </div>
-            ))}
+            ))} */}
         </div>
       </div>
     </div>
