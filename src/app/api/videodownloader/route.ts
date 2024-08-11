@@ -5,6 +5,14 @@ export async function POST(req: NextRequest) {
   const { url }: { url: string } = await req.json();
   let options: AxiosRequestConfig;
 
+  let Id = url.split('/').includes('shorts')
+    ? url.split('/shorts/')[1]?.split('?')[0]
+    : url.split('/')[3]?.split('?')[0];
+  console.log("Extracted videoId:", Id); // Debugging
+
+
+
+
   if (url.includes('https://www.facebook.com/')) {
     options = {
       method: 'GET',
@@ -40,20 +48,28 @@ export async function POST(req: NextRequest) {
     url.includes('https://www.youtube.com/') ||
     url.includes('https://www.youtube.com/shorts/')
   ) {
+
     options = {
       method: 'GET',
-      url: 'https://youtube-media-downloader.p.rapidapi.com/v2/video/details',
-      params: {
-        videoId: url.split('/').includes('shorts')
-          ? url.split('/')[4]?.split('?')[0]
-          : url.split('/')[3]?.split('?')[0],
-        format: 'xml',
-      },
+      url: 'https://yt-api.p.rapidapi.com/dl',
+      params: { id: Id },
       headers: {
         'x-rapidapi-key': 'a26f9feb6fmshee2828919b06e7dp17c59cjsnd452b224e229',
-        'x-rapidapi-host': 'youtube-media-downloader.p.rapidapi.com',
-      },
+        'x-rapidapi-host': 'yt-api.p.rapidapi.com'
+      }
     };
+
+    // options = {
+    //   method: 'GET',
+    //   url: 'https://youtube-media-downloader.p.rapidapi.com/v2/video/details',
+    //   params: {
+    //     videoId: Id,
+    //   },
+    //   headers: {
+    //     'x-rapidapi-key': 'a26f9feb6fmshee2828919b06e7dp17c59cjsnd452b224e229',
+    //     'x-rapidapi-host': 'youtube-media-downloader.p.rapidapi.com',
+    //   },
+    // };
   } else if (url.includes('https://twitter.com/')) {
     options = {
       method: 'GET',
@@ -73,7 +89,6 @@ export async function POST(req: NextRequest) {
 
   try {
     const response = await axios.request(options);
-    // console.log(response.data);
     return NextResponse.json(response.data);
 
   } catch (error: any) {

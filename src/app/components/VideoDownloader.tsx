@@ -3,12 +3,16 @@ import { useEffect, useState, FormEvent } from 'react';
 import Image from 'next/image';
 import { LoaderSpinner } from './spinner';
 
+
+
 interface VideoData {
   videos?: { items: { url: string; quality: string; hasAudio: boolean }[] };
   audios?: { items: { url: string }[] };
   data?: { play: string, src: string };
   download_url?: string;
   links?: { sdLink: string };
+  formats?: { url: string }[];
+
 }
 
 export default function VideoDownloader() {
@@ -17,7 +21,12 @@ export default function VideoDownloader() {
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
+  console.log("shorts :", url.split('/shorts/')[1]?.split('?')[0])
+  console.log("shorts :", url.split('/'))
+  console.log("no-shorts :", url.split('/')[3]?.split('?')[0]);
   console.log("videos ", videos);
+
+
 
 
   useEffect(() => {
@@ -130,7 +139,7 @@ function VideoDisplayer({ videos, url }: VideoDisplayerProps) {
 
 function videoRender(url: string, videos: VideoData): string | undefined {
   if (url.includes('https://youtu.be/') || url.includes('https://www.youtube.com/')) {
-    return videos.videos?.items[0].url;
+    return videos?.formats?.[0].url;
   } else if (url.includes('https://www.tiktok.com/')) {
     return videos.data?.play;
   } else if (url.includes('https://www.instagram.com/')) {
