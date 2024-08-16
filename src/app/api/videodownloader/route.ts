@@ -17,11 +17,13 @@ export async function POST(req: NextRequest) {
     options = {
       method: 'GET',
       url: 'https://facebook-video-and-reel-downloader1.p.rapidapi.com/status',
-      params: { url },
-      headers: {
-        'x-rapidapi-key': 'a26f9feb6fmshee2828919b06e7dp17c59cjsnd452b224e229',
-        'x-rapidapi-host': 'facebook-video-and-reel-downloader1.p.rapidapi.com',
+      params: {
+        url: url,
       },
+      headers: {
+        'x-rapidapi-key': '65edbf7688msh6c557d53975b9adp154e24jsn5b8f3ed62de7',
+        'x-rapidapi-host': 'facebook-video-and-reel-downloader1.p.rapidapi.com'
+      }
     };
   } else if (url.includes('https://www.tiktok.com/')) {
     options = {
