@@ -43,21 +43,21 @@ export async function POST(req: NextRequest) {
         'x-rapidapi-host': 'instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com',
       },
     };
-  } else if (
-    url.includes('https://youtu.be/') ||
-    url.includes('https://www.youtube.com/') ||
-    url.includes('https://www.youtube.com/shorts/')
-  ) {
+    // } else if (
+    //   url.includes('https://youtu.be/') ||
+    //   url.includes('https://www.youtube.com/') ||
+    //   url.includes('https://www.youtube.com/shorts/')
+    // ) {
 
-    options = {
-      method: 'GET',
-      url: 'https://yt-api.p.rapidapi.com/dl',
-      params: { id: Id },
-      headers: {
-        'x-rapidapi-key': 'a26f9feb6fmshee2828919b06e7dp17c59cjsnd452b224e229',
-        'x-rapidapi-host': 'yt-api.p.rapidapi.com'
-      }
-    };
+    //   options = {
+    //     method: 'GET',
+    //     url: 'https://yt-api.p.rapidapi.com/dl',
+    //     params: { id: Id },
+    //     headers: {
+    //       'x-rapidapi-key': 'a26f9feb6fmshee2828919b06e7dp17c59cjsnd452b224e229',
+    //       'x-rapidapi-host': 'yt-api.p.rapidapi.com'
+    //     }
+    //   };
 
     // options = {
     //   method: 'GET',

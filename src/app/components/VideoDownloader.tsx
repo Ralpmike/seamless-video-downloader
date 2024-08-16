@@ -2,6 +2,7 @@
 import { useEffect, useState, FormEvent } from 'react';
 import Image from 'next/image';
 import { LoaderSpinner } from './spinner';
+import Link from 'next/link';
 
 
 
@@ -83,7 +84,7 @@ export default function VideoDownloader() {
         <Image src="/instagram.svg" alt="instagram" width={48} height={48} />
         <Image src="/tiktok-icons.svg" alt="tiktok" width={48} height={48} />
         <Image src="/facebook.svg" alt="facebook" width={48} height={48} />
-        <Image src="/youtube.svg" alt="youtube" width={48} height={48} />
+        {/* <Image src="/youtube.svg" alt="youtube" width={48} height={48} /> */}
         <Image src="/twitter.svg" alt="youtube" width={48} height={48} />
       </div>
       <form onSubmit={handleSubmit} className="flex w-full gap-4 md:justify-center md:items-center my-4 flex-col md:flex-row">
@@ -113,11 +114,34 @@ function VideoDisplayer({ videos, url }: VideoDisplayerProps) {
   return (
     <div className='my-6'>
       <div className="flex flex-col items-center gap-4">
-        <div className="max-w-[640px] w-full">
-          <video controls className='rounded-lg'>
-            <source src={videoRender(url, videos)} type="video/mp4" />
-          </video>
-          {/* {(url.includes('https://youtu.be/') || url.includes('https://www.youtube.com/')) &&
+        <div className="max-w-[440px] md:max-w-[640px] w-full">
+          <iframe className="rounded-lg w-full h-auto aspect-[4/3]" src={videoRender(url, videos)} >
+            {/* <source src={videoRender(url, videos)} type="video/mp4" /> */}
+          </iframe>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function videoRender(url: string, videos: VideoData): string | undefined {
+  // if (url.includes('https://youtu.be/') || url.includes('https://www.youtube.com/')) {
+  //   return videos?.formats?.[0].url;
+  // } 
+  if (url.includes('https://www.tiktok.com/')) {
+    return videos.data?.play;
+  } else if (url.includes('https://www.instagram.com/')) {
+    return videos.download_url;
+  } else if (url.includes('https://www.facebook.com/')) {
+    return videos.links?.sdLink;
+  } else if (url.includes('https://twitter.com/')) {
+    return videos?.data?.src;
+  }
+}
+
+
+{/* {(url.includes('https://youtu.be/') || url.includes('https://www.youtube.com/')) &&
             videos.videos?.items.map((video, index) => (
               <div key={index} className="flex flex-col gap-4">
                 <a target="_blank" href={video.url} className="flex gap-3">
@@ -131,22 +155,3 @@ function VideoDisplayer({ videos, url }: VideoDisplayerProps) {
                 </figure>
               </div>
             ))} */}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function videoRender(url: string, videos: VideoData): string | undefined {
-  if (url.includes('https://youtu.be/') || url.includes('https://www.youtube.com/')) {
-    return videos?.formats?.[0].url;
-  } else if (url.includes('https://www.tiktok.com/')) {
-    return videos.data?.play;
-  } else if (url.includes('https://www.instagram.com/')) {
-    return videos.download_url;
-  } else if (url.includes('https://www.facebook.com/')) {
-    return videos.links?.sdLink;
-  } else if (url.includes('https://twitter.com/')) {
-    return videos?.data?.src;
-  }
-}
